@@ -34,6 +34,6 @@ then
 fi
 
 
-docker build -t  $awsAccountId.dkr.ecr.$region.amazonaws.com/$applicationName-$env:latest -f ./examples/nodejs/server/Dockerfile  .
+docker build -t  $awsAccountId.dkr.ecr.$region.amazonaws.com/$applicationName-$env:latest -f ./server/Dockerfile  .
 
 docker push $awsAccountId.dkr.ecr.$region.amazonaws.com/$applicationName-$env:latest
