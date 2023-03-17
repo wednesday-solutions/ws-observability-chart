@@ -1,0 +1,29 @@
+
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      initContainers:
+      - name: init-myservice
+        image: wednesdaysolutions/ws-observability-chart:latest
+        env:
+        - name: ELASTICSEARCH_NAME
+          value: {{  .Values.elasticsearchName }}
+        - name: ELASTICSEARCH_SECRET_NAME
+          value: {{  .Values.elasticsearchSecretName  }}
+        - name: JAEGER_ENDPOINT
+          value: {{  .Values.jaegerEndpoint  }}  
+        - name: JAEGER_NAME
+          value: {{  .Values.jaegerName  }}           
+        - name: OTEL_NAME
+          value: {{  .Values.otelName  }}                  
+            
+      containers:
+      - name: pi
+        image: perl:5.34.0
+        command: ["perl",  "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+      restartPolicy: Never
+  backoffLimit: 4

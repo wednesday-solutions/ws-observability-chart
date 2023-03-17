@@ -1,0 +1,25 @@
+apiVersion: jaegertracing.io/v1
+kind: Jaeger
+metadata:
+  name: jaeger
+spec:       
+  strategy: production
+  storage:
+    type: elasticsearch
+    options:
+      es: 
+        server-urls: https://elasticsearch-name-es-http:9200
+        tls:
+          ca: /es/certificates/ca.crt
+        num-shards: 1
+        num-replicas: 0
+    secretName: elasticsearch-secret
+  volumeMounts:
+    - name: certificates
+      mountPath: /es/certificates/
+      readOnly: true
+  volumes:
+    - name: certificates
+      secret:
+        secretName: elasticsearch-name-es-http-certs-public
+

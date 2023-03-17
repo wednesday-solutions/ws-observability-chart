@@ -1,0 +1,17 @@
+apiVersion: v2
+description: A Helm chart to deploy Elasticsearch managed by the ECK Operator.
+icon: https://helm.elastic.co/icons/elasticsearch.png
+kubeVersion: '>= 1.21.0-0'
+name: eck-elasticsearch
+sources:
+- https://github.com/elastic/cloud-on-k8s
+- https://github.com/elastic/elasticsearch/
+type: application
+version: 0.2.0
+dependencies:
+  - name: eck-operator
+    version: "2.6.1"
+    repository: "file://../eck-operator"
+  - name: cert-manager
+    version: "v1.11.0"
+    repository: "file://../cert-manager"  

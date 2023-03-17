@@ -1,0 +1,35 @@
+apiVersion: opentelemetry.io/v1alpha1
+kind: OpenTelemetryCollector
+metadata:
+  name: otel
+spec:
+  env:
+    - name: JAEGER_ENDPOINT_VALUE
+      valueFrom:
+        configMapKeyRef:
+          name: ws-chart-config
+          key: jaeger_endpoint
+       
+  mode: daemonset 
+  config: |
+    receivers:
+      otlp:
+        protocols:
+          grpc: 
+          http: 
+    processors:
+
+    exporters:
+      logging:
+      jaeger:
+        endpoint: ${JAEGER_ENDPOINT_VALUE} 
+        tls:
+          insecure: true
+
+    service:
+      pipelines:
+        traces:
+          receivers: [otlp]
+          processors: []
+          exporters: [jaeger]
+

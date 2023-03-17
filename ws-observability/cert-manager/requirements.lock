@@ -1,0 +1,6 @@
+dependencies:
+- name: jaeger-operator
+  repository: file://../jaeger-operator
+  version: 0.1.0
+digest: sha256:964869d25e94763d8d0f0795509c5dbbc7a7f490c84c5d925d304a6fb010a73a
+generated: "2023-02-22T16:04:09.88406+05:30"

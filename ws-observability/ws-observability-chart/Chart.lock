@@ -1,0 +1,12 @@
+dependencies:
+- name: fluent-bit
+  repository: file://../fluent-bit
+  version: 0.24.0
+- name: prometheus
+  repository: file://../prometheus
+  version: 19.7.2
+- name: grafana
+  repository: file://../grafana
+  version: 6.52.3
+digest: sha256:54430f14956e8b99c8f44dc9cd38d9f1788ab43d02983368968467231db13e2e
+generated: "2023-03-17T14:27:23.625914+05:30"
