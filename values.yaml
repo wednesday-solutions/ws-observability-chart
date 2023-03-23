@@ -1,12 +1,25 @@
-applicationName: eks-fargate-starter
 elasticsearchSecretName: secret-basic-auth
 elasticsearchName: eks-fargate-starter-storage
 jaegerName: eks-fargate-starter-observability
 jaegerEndpoint: eks-fargate-starter-observability-collector.default:14250
 otelName: eks-fargate-starter-otel 
 
+prometheus:
+  enabled: true
+  aws:
+    enableStorage: true 
+    prometheusServer:
+      efs:
+        fileSystemId: fs-0ae3e2587518b4799
+        accessPointId: fsap-0e8e7f1cca7d50bb0
+
 grafana:
   enabled: true 
+  aws:
+    enableStorage: true
+    efs:
+        fileSystemId: fs-0c2a69eab6d649989
+        accessPointId: fsap-0fe654943416d7ab9    
   adminUser: admin
   adminPassword: password
   datasources:
@@ -25,47 +38,12 @@ grafana:
     accessModes:
       - ReadWriteOnce
     size: 10Gi
-    # annotations: {}
     finalizers:
       - kubernetes.io/pvc-protection
-    # selectorLabels: {}
-    ## Sub-directory of the PV to mount. Can be templated.
-    # subPath: ""
-    ## Name of an existing PVC. Can be templated.
-    # existingClaim:
-    ## Extra labels to apply to a PVC.
     extraPvcLabels: {}
-
-    ## If persistence is not enabled, this allows to mount the
-    ## local storage in-memory to improve performance
-    ##
     inMemory:
       enabled: false
-      ## The maximum usage on memory medium EmptyDir would be
-      ## the minimum value between the SizeLimit specified
-      ## here and the sum of memory limits of all containers in a pod
-      ##
-      # sizeLimit: 300Mi
-  aws:
-    enableStorage: true
-    efs:
-        fileSystemId: fs-0bec4ddae6e991d89
-        accessPointId: fsap-0fbddd1216e353175      
-
-prometheus:
-  enabled: true
-  fullnameOverride: eks-fargate-starter-prometheus
-  aws:
-    enableStorage: true 
-    prometheusServer:
-      efs:
-        fileSystemId: fs-023bc57db1fac6155
-        accessPointId: fsap-01bd25b8cdcacc0f7
-    prometheusAlertManager:
-      efs:
-        fileSystemId: fs-074da5dd05110f8a8
-        accessPointId: fsap-059b805c67d17f97e
-
+  
 fluent-bit:
   fullnameOverride: eks-fargate-logging
   es_host_logging: eks-fargate-starter-storage-es-http.default
@@ -78,8 +56,8 @@ fluent-bit:
       aws:
         enableStorage: true
         efs:
-          fileSystemId: fs-00e59c72c756cdd23
-          accessPointId: fsap-04055dcc7a6f722fe
+          fileSystemId: fs-0f8707bf7464ede23
+          accessPointId: fsap-0e4df79e740c5a1e6
       nodeSets:
       - name: default
         count: 1

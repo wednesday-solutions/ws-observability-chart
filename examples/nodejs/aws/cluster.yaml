@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: basic-cluster-1
+  name: rus-basic-cluster
   region: ap-south-1
       
 nodeGroups:

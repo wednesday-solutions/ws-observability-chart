@@ -29,25 +29,4 @@ spec:
   csi:
     driver: efs.csi.aws.com
     volumeHandle: {{  .Values.aws.prometheusServer.efs.fileSystemId }}
-
----
-
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: prometheus-alertmanager-pv
-  annotations:
-    elasticsearch.k8s.elastic.co/csi-driver: efs.csi.aws.com 
-
-spec:
-  capacity:
-    storage: 2Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: efs-sc
-  csi:
-    driver: efs.csi.aws.com
-    volumeHandle: {{  .Values.aws.prometheusAlertManager.efs.fileSystemId }}
 {{- end }}     

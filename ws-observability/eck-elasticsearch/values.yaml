@@ -96,9 +96,4 @@ efsFileSystemId: ''
 accessPointId: ''
 storageSize: 4Gi
 storageClassName: efs-sc
-
-aws:
-  enableStorage: false
-  efs:
-    fileSystemId: ''
-    accessPointId: ''
+aws.elasticsearch.enableStorage: false

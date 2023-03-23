@@ -31,26 +31,32 @@ fi
 vpc_id=$(aws eks describe-cluster \
     --name $clusterName \
     --query "cluster.resourcesVpcConfig.vpcId" \
-    --output text)
+    --output text \
+    --region $regionCode \
+    --no-cli-pager)
 
 cidr_range=$(aws ec2 describe-vpcs \
     --vpc-ids $vpc_id \
     --query "Vpcs[].CidrBlock" \
     --output text \
-    --region $regionCode)
+    --region $regionCode \
+    --no-cli-pager)
 
 aws ec2 authorize-security-group-ingress \
     --group-id $securityGroupId \
     --protocol tcp \
     --port 2049 \
-    --cidr $cidr_range
+    --region $regionCode \
+    --cidr $cidr_range \
+    --no-cli-pager
 
 file_system_id=$(aws efs create-file-system \
     --region $regionCode \
     --performance-mode generalPurpose \
     --query 'FileSystemId' \
     --tags Key=Name,Value="efs-elasticsearch" \
-    --output text )
+    --output text \
+    --no-cli-pager)
 
 echo "File System Id for elasticsearch : $file_system_id" 
 
@@ -59,7 +65,8 @@ file_system_id=$(aws efs create-file-system \
     --performance-mode generalPurpose \
     --query 'FileSystemId' \
     --tags Key=Name,Value="efs-prometheus-server" \
-    --output text)
+    --output text \
+    --no-cli-pager)
 
 echo "File System Id for prometheus-server : $file_system_id"    
 
@@ -67,17 +74,10 @@ file_system_id=$(aws efs create-file-system \
     --region $regionCode \
     --performance-mode generalPurpose \
     --query 'FileSystemId' \
-    --tags Key=Name,Value="efs-prometheus-alert-manager" \
-    --output text)
-
-echo "File System Id for prometheus-alert-manager: $file_system_id"  
-
-file_system_id=$(aws efs create-file-system \
-    --region $regionCode \
-    --performance-mode generalPurpose \
-    --query 'FileSystemId' \
     --tags Key=Name,Value="efs-grafana" \
-    --output text)
+    --output text \
+    --no-cli-pager)
+
 
 echo "File System Id for grafana: $file_system_id"  
 
