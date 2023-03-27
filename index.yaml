@@ -1,0 +1,26 @@
+apiVersion: v1
+entries:
+  ws-observability:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2023-03-27T07:18:44.174089794Z"
+    dependencies:
+    - name: fluent-bit
+      repository: file://../../ws-observability/fluent-bit
+      version: 0.24.0
+    - condition: prometheus.enabled
+      name: prometheus
+      repository: file://../../ws-observability/prometheus
+      version: 19.7.2
+    - condition: grafana.enabled
+      name: grafana
+      repository: file://../../ws-observability/grafana
+      version: 6.52.3
+    description: A Helm chart for Kubernetes
+    digest: f4316f8713e79f6a2182cdad48d4c6d284ce747bfc3e3389db88807c5d36355b
+    name: ws-observability
+    type: application
+    urls:
+    - https://github.com/wednesday-solutions/ws-observability-chart/releases/download/ws-observability-0.1.0/ws-observability-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-03-27T07:18:44.174099094Z"
