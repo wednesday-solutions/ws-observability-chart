@@ -1,0 +1,12 @@
+dependencies:
+- name: fluent-bit
+  repository: file://../../ws-observability/fluent-bit
+  version: 0.24.0
+- name: prometheus
+  repository: file://../../ws-observability/prometheus
+  version: 19.7.2
+- name: grafana
+  repository: file://../../ws-observability/grafana
+  version: 6.52.3
+digest: sha256:20148f6fb2c3b3f00009d2ad5d9a1ddc4c1701c32df8e6024c0326f5fd3d78f4
+generated: "2023-03-27T12:47:22.754507+05:30"
