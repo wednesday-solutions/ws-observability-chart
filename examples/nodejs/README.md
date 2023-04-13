@@ -54,7 +54,8 @@
     Once the necessary modifications have been made to the values.yaml file based on the specific requirements of the deployment, proceed with the installation of the chart.
 
     ```
-     helm install eks ./ws-observability/ws-observability-chart -f ./values.yaml
+    helm repo add ws-observability https://wednesday-solutions.github.io/ws-observability-chart
+    helm install ws-observability  -f ./values.yaml
     ```
 - ### Install the backend on the eks cluster
 
