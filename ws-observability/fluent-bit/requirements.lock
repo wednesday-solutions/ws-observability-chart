@@ -1,9 +1,0 @@
-dependencies:
-- name: eck-kibana
-  repository: file://../eck-kibana
-  version: 0.2.0
-- name: opentelemetry-operator
-  repository: file://../opentelemetry-operator
-  version: 0.23.0
-digest: sha256:2c3d1502fbd69c0f5a062df4cd9262d32357daa1918d26610b600321938c1e61
-generated: "2023-02-27T18:25:01.71375+05:30"

@@ -4,3 +4,4 @@ node_modules
 ./examples/nodejs/server/node_modules
 
 .env.local
+ws-observability/
