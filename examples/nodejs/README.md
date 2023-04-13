@@ -30,7 +30,7 @@
 - ### Create mount target and access point for Elastisearch, Prometheus Server and Grafana    
   
     ```
-     ./scripts/create-mount-target.sh --elasticsearchFId=XYZ --prometheusServerFId=XYZ --grafanaFId=XYZ --subnet1=XYZ --subnet2=XYZ --regionCode=XYZ 
+     ./scripts/create-mount-target.sh --clusterName=XYZ --elasticsearchFId=XYZ --prometheusServerFId=XYZ --grafanaFId=XYZ --subnet1=XYZ --subnet2=XYZ --regionCode=XYZ 
     ```  
 
 - ### Install ws-observability-chart

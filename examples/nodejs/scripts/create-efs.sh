@@ -11,7 +11,7 @@ done
 
 if [ -z "$clusterName" ]
 then
-    echo "applicationName cannot be empty"
+    echo "clusterName cannot be empty"
     exit
 fi
 

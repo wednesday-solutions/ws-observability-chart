@@ -81,7 +81,7 @@ echo "🚀 Building and pushing docker image to ECR cluster"
 
 ./scripts/docker-build-and-push-to-ecr.sh --region=$regionCode --applicationName=$applicationName --env=$env --awsAccountId=$accountId
 
-securityGroupId=$(aws eks describe-cluster --name rus-basic-cluster --query "cluster.resourcesVpcConfig.securityGroupIds[]" --output text --no-cli-pager)
+securityGroupId=$(aws eks describe-cluster --name $clusterName --query "cluster.resourcesVpcConfig.securityGroupIds[]" --output text --no-cli-pager)
 
 echo "securityGroupId $securityGroupId"
 

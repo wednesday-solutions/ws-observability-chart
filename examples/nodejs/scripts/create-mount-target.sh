@@ -45,7 +45,13 @@ then
     exit
 fi
 
-securityGroupId=$(aws eks describe-cluster --name rus-basic-cluster --query "cluster.resourcesVpcConfig.securityGroupIds[]" --output text --no-cli-pager)
+if [ -z "$clusterName" ]
+then
+    echo "clusterName  cannot be empty"
+    exit
+fi
+
+securityGroupId=$(aws eks describe-cluster --name $clusterName --query "cluster.resourcesVpcConfig.securityGroupIds[]" --output text --no-cli-pager)
 
 echo "securityGroupId $securityGroupId"
 
