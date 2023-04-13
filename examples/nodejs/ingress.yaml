@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  namespace: default
+  name: ws-ingress
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ingressClassName: alb
+  rules:
+    - host: jaeger.wednesday.is 
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name:  eks-fargate-starter-observability-query
+              port:
+                number: 16686
+    - host: grafana.wednesday.is
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name:  eks-grafana 
+              port:
+                number: 80
+    - host: kibana.wednesday.is
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name:  eks-fargate-visualisation-kb-http
+              port:
+                number: 5601                                                  

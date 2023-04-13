@@ -1,0 +1,98 @@
+elasticsearchSecretName: secret-basic-auth
+elasticsearchName: eks-fargate-starter-storage
+jaegerName: eks-fargate-starter-observability
+jaegerEndpoint: eks-fargate-starter-observability-collector.default:14250
+otelName: eks-fargate-starter-otel 
+
+prometheus:
+  enabled: true
+  aws:
+    enableStorage: true 
+    prometheusServer:
+      efs:
+        fileSystemId: fs-012bc45b00f96112d
+        accessPointId: fsap-05c1ca2ce7ba3aad6
+
+grafana:
+  enabled: true 
+  aws:
+    enableStorage: true
+    efs:
+        fileSystemId: fs-0c155cb4bf7dc36e5
+        accessPointId: fsap-01e4a3c96c4fea4ce  
+  adminUser: admin
+  adminPassword: password
+  datasources:
+    datasources.yaml:
+      apiVersion: 1
+      datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://eks-prometheus-server.default.svc.cluster.local
+        access: proxy
+        isDefault: true
+  persistence:
+    type: pvc
+    enabled: true
+    storageClassName: standard-grafana
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+    finalizers:
+      - kubernetes.io/pvc-protection
+    extraPvcLabels: {}
+    inMemory:
+      enabled: false
+  
+fluent-bit:
+  fullnameOverride: eks-fargate-logging
+  es_host_logging: eks-fargate-starter-storage-es-http.default
+  eck-kibana:
+    elasticsearchRefName: eks-fargate-starter-storage
+    fullnameOverride: eks-fargate-visualisation
+    eck-elasticsearch:
+      storageSize: 10Gi 
+      storageClassName: efs-sc
+      aws:
+        enableStorage: true
+        efs:
+          fileSystemId: fs-0e88784b7c3240f6d
+          accessPointId: fsap-0da0eddd6ed0af3a7
+      nodeSets:
+      - name: default
+        count: 1
+        config:
+          node.data: true
+          node.ingest: true
+          node.master: true
+          node.store.allow_mmap: false
+        count: 1
+        name: default  
+        podTemplate:
+          spec:
+            containers:
+            - name: elasticsearch
+              volumeMounts:
+              - name: elasticsearch-data
+                mountPath: /usr/share/elasticsearch/data
+                readOnly: false
+              resources:
+                requests:
+                  cpu: 2
+                limits:
+                  memory: 10Gi
+        volumeClaimTemplates:
+         - metadata:
+             name: elasticsearch-data
+           spec:
+             accessModes:
+               - ReadWriteMany
+             resources:
+               requests:
+                 storage: 10Gi
+             storageClassName: efs-sc
+      fullnameOverride: eks-fargate-starter-storage
+      username: wednesday-solutions
+      password: password123
+      cert-manager:
+        createCustomResource: true

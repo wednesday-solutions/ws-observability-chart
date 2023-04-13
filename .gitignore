@@ -1,0 +1,6 @@
+.DS_Store
+node_modules
+
+./examples/nodejs/server/node_modules
+
+.env.local

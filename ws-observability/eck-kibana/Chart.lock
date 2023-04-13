@@ -1,0 +1,9 @@
+dependencies:
+- name: eck-elasticsearch
+  repository: file://../eck-elasticsearch
+  version: 0.2.0
+- name: jaeger-operator
+  repository: file://../jaeger-operator
+  version: 0.1.0
+digest: sha256:43ea22e90c7a9c7d31b2682ec64912b5e9ac2ec6bd5e3a09b4af099ee349aeaa
+generated: "2023-02-22T17:27:26.636276+05:30"
